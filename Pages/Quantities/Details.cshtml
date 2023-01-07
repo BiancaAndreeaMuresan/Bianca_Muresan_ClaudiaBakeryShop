@@ -1,0 +1,25 @@
+﻿@page
+@model Bianca_Muresan_ClaudiaBakeryShop.Pages.Quantities.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Quantity</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Quantity.QuantityName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Quantity.QuantityName)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Quantity?.ID">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

@@ -1,0 +1,78 @@
+﻿@page 
+@model Bianca_Muresan_ClaudiaBakeryShop.Pages.Products.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Products</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].ExpireDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].Adress.AdressName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].Quantity.QuantityName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].City.CityName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].ProductCategories)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Product)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExpireDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Adress.AdressName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity.QuantityName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City.CityName)
+                </td>
+                <td>
+                    @{
+                        foreach (var category in item.ProductCategories)
+                        {
+                            @category.Category.ID @: @category.Category.CategoryName <br />
+                        }
+                    }
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
