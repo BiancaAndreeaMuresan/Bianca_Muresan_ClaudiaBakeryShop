@@ -23,5 +23,9 @@ namespace Bianca_Muresan_ClaudiaBakeryShop.Data
         public DbSet<Bianca_Muresan_ClaudiaBakeryShop.Models.Quantity> Quantity { get; set; }
 
         public DbSet<Bianca_Muresan_ClaudiaBakeryShop.Models.Category> Category { get; set; }
+
+        public DbSet<Bianca_Muresan_ClaudiaBakeryShop.Models.Member> Member { get; set; }
+
+        public DbSet<Bianca_Muresan_ClaudiaBakeryShop.Models.Cart> Cart { get; set; }
     }
 }

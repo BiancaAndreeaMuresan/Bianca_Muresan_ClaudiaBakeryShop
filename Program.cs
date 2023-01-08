@@ -1,6 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Bianca_Muresan_ClaudiaBakeryShop.Data;
+using Microsoft.AspNetCore.Identity;
+using Bianca_Muresan_ClaudiaBakeryShop.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -8,6 +11,13 @@ builder.Services.AddRazorPages();
 builder.Services.AddDbContext<Bianca_Muresan_ClaudiaBakeryShopContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Bianca_Muresan_ClaudiaBakeryShopContext") ?? throw new InvalidOperationException("Connection string 'Bianca_Muresan_ClaudiaBakeryShopContext' not found.")));
 
+builder.Services.AddDbContext<LibraryIdentityContext>(options =>
+
+options.UseSqlServer(builder.Configuration.GetConnectionString("Bianca_Muresan_ClaudiaBakeryShopContext") ?? throw new InvalidOperationException("Connection string 'Bianca_Muresan_ClaudiaBakeryShopShopContext' not found.")));
+builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
+ .AddEntityFrameworkStores<LibraryIdentityContext>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -22,6 +32,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseAuthentication(); ;
 
 app.UseAuthorization();
 

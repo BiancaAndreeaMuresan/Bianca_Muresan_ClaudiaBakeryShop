@@ -1,0 +1,53 @@
+﻿@page
+@model Bianca_Muresan_ClaudiaBakeryShop.Pages.Carts.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Cart of products</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Cart[0].Member)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cart[0].Product)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cart[0].OrderDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cart[0].Product.Name)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Cart)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Member.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderDate)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

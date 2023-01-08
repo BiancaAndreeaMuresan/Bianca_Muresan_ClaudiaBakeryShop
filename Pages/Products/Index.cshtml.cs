@@ -23,25 +23,48 @@ namespace Bianca_Muresan_ClaudiaBakeryShop.Pages.Products
         public ProductData ProductD { get; set; }
         public int ProductID { get; set; }
         public int CategoryID { get; set; }
+        public string NameSort { get; set; }
+        public string CurrentFilter { get; set; }
 
-        public async Task OnGetAsync(int? id, int? categoryID)
+        public async Task OnGetAsync(int? id, int? categoryID, string sortOrder, string
+searchString)
         {
-
             ProductD = new ProductData();
-            Product = await _context.Product
-                .Include(p => p.Adress)
-                .Include(p => p.Quantity)
-                .Include(p => p.City)
-                .Include(p => p.ProductCategories)
-                .ThenInclude(p => p.Category)
-                .AsNoTracking()
-                .ToListAsync();
+
+            NameSort = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+
+
+            CurrentFilter = searchString;
+
+            ProductD.Products = await _context.Product
+            .Include(b => b.Adress)
+            .Include(b => b.Quantity)
+            .Include(b => b.City)
+            .Include(b => b.ProductCategories)
+            .ThenInclude(b => b.Category)
+            .AsNoTracking()
+            .OrderBy(b => b.Name)
+            .ToListAsync();
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                ProductD.Products = ProductD.Products.Where(s => s.Name.Contains(searchString));
+            }
+
+
             if (id != null)
             {
                 ProductID = id.Value;
                 Product product = ProductD.Products
                 .Where(i => i.ID == id.Value).Single();
                 ProductD.Categories = product.ProductCategories.Select(s => s.Category);
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    ProductD.Products = ProductD.Products.OrderByDescending(s =>
+                    s.Name);
+                    break;
             }
         }
     }
